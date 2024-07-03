@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://525ekg5llyq5"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_maot6"]
+[ext_resource type="Texture2D" uid="uid://d26ll1qbummu8" path="res://Assets/vaisseau.png" id="1_omhkw"]
+[ext_resource type="Texture2D" uid="uid://btwhaqxrqd732" path="res://Assets/Pixilart frames/pixil-frame-0.png" id="2_tillf"]
+[ext_resource type="Texture2D" uid="uid://tcu5udgw0qlx" path="res://Assets/Pixilart frames/pixil-frame-1.png" id="3_hi1nr"]
+[ext_resource type="Texture2D" uid="uid://c2icipfwoc2jt" path="res://Assets/Pixilart frames/pixil-frame-2.png" id="4_oilps"]
+[ext_resource type="Texture2D" uid="uid://cnshjqsbl2c38" path="res://Assets/Pixilart frames/pixil-frame-3.png" id="5_q8bqh"]
+[ext_resource type="Texture2D" uid="uid://ckqwuoinc84ts" path="res://Assets/Pixilart Fire Spritesheet.png" id="7_2cige"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6elh"]
+atlas = ExtResource("7_2cige")
+region = Rect2(0, 12, 16, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_acpu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tillf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hi1nr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oilps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q8bqh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6elh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_maot6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_omhkw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-14, 0)
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_acpu5")
+animation = &"idle"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-2, 0)
+rotation = 1.5708
+scale = Vector2(1, 1.00781)
+polygon = PackedVector2Array(-4.00004, -11.907, -9.99999, 3.96904, -9.99998, 6.94579, 10, 6.94572, 10, 3.96897, 2.99996, -11.907)
+
+[node name="Coll" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Coll"]
+position = Vector2(-2, 0)
+rotation = 1.5708
+scale = Vector2(1, 1.00781)
+polygon = PackedVector2Array(-4.00004, -11.907, -9.99999, 3.96904, -9.99998, 6.94579, 10, 6.94572, 10, 3.96897, 2.99996, -11.907)

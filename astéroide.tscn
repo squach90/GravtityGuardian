@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://cge6o8yd711ck"]
+
+[ext_resource type="Script" path="res://astéroide.gd" id="1_ekwxf"]
+[ext_resource type="Texture2D" uid="uid://cd0dkdvbbl1aw" path="res://Assets/Asteroides/Asteroide 1.png" id="1_oxwd4"]
+[ext_resource type="Texture2D" uid="uid://dvud1xcajq2qj" path="res://Assets/explosion.png" id="3_kql2i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7m1c"]
+atlas = ExtResource("3_kql2i")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k1vs"]
+atlas = ExtResource("3_kql2i")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lukjd"]
+atlas = ExtResource("3_kql2i")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4srab"]
+atlas = ExtResource("3_kql2i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4t2ba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oxwd4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7m1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k1vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lukjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4srab")
+}],
+"loop": true,
+"name": &"explosion",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76k7s"]
+size = Vector2(29, 27)
+
+[node name="Astéroide" type="RigidBody2D"]
+script = ExtResource("1_ekwxf")
+amplitude = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5, 0.5)
+scale = Vector2(1.0625, 1.0625)
+sprite_frames = SubResource("SpriteFrames_4t2ba")
+animation = &"explosion"
+frame_progress = 0.0481677
+
+[node name="Area2DA" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DA"]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_76k7s")
+
+[connection signal="area_entered" from="Area2DA" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2DA" to="." method="_on_area_2d_body_entered"]
